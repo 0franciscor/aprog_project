@@ -18,18 +18,23 @@ public class Trabalho {
 
     public static void alineaA (int [][] matriz,int n){
 
-        for(int i=0; i < n ; i++){
+        for(int i=0; i < n ; i++) {
             int num = ler.nextInt();
+            /*int caracteres = String.valueOf(num).length();
+            while (caracteres > n){
+                num = ler.nextInt();
+                caracteres = String.valueOf(num).length();
+            }*/
                 // matriz[i][j]= Integer.valueOf(String.valueOf(String.valueOf(num).charAt(j))); precisa do ciclo for em função de j
-                int aux1 = num;
-                int aux2 = n;
-                do {
-                    int dig = aux1 % 10;
-                    int aux = dig;
-                    aux2--;
-                    matriz[i][aux2]=aux;
-                    aux1 = aux1 / 10;
-                }while (aux1>0);
+            int aux1 = num;
+            int aux2 = n;
+            do {
+                int dig = aux1 % 10;
+                int aux = dig;
+                aux2--;
+                matriz[i][aux2]=aux;
+                aux1 = aux1 / 10;
+            }while (aux1>0);
         }
     }
     /*==========================================================*/
