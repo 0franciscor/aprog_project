@@ -1,40 +1,53 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 import java.util.Scanner;
 public class Trabalho {
 
-    public static void main(String[] args)throws FileNotFoundException {
-        /* System.out.println("Quadro com numeros");
-
-        int n; //n = ordem da matriz (ex 4x4)
-        do{
-            n=ler.nextInt();
-        }while(n<=0);
-
-        int [][] matriz = new int [n][n];
-        alineaB(matriz,n);
-
-        */
+    public static void main(String[] args) throws FileNotFoundException {
         alineaA();
+        //alineaB();
     }
 
     public static void alineaA () throws FileNotFoundException {
         File inputMatriz = new File("Imagem.txt");
         Scanner ler = new Scanner(inputMatriz);
-        int aux = 1;
-        int ordem=0;
+        int numLinhas = 0;
         while (ler.hasNext()) {
-            String input = ler.nextLine();
-            System.out.println(input);
-            if(aux == 2){
-                ordem = ler.nextInt();
-            }
-            aux++;
+            String readLinhas = ler.nextLine();
+            numLinhas++;
         }
-        int[][] matriz = new int[ordem][ordem]; //Integer.valueOf(String.valueOf(String.valueOf(num).charAt(j)));
-        System.out.println(matriz.length);
+        ler.close();
 
-        /*for(int i=0; i < n ; i++) {
+        int[][] matriz = new int[(numLinhas - 2)][(numLinhas - 2)];
+
+        Scanner read = new Scanner(inputMatriz);
+        int aux = 0;
+        int aux2 = 0;
+        while (read.hasNext()) {
+            aux++;
+            String input = read.nextLine();
+            System.out.println(input);
+            if (aux > 2) {
+                for (int j = 0; j < matriz.length; j++)
+                    matriz[aux2][j] = Integer.valueOf(String.valueOf(String.valueOf(input).charAt(j)));
+                aux2++;
+            }
+        }
+
+        System.out.println("");
+        for (int i = 0; i < matriz.length; i++) {
+            if (i != 0)
+                System.out.println();
+            for (int j = 0; j < matriz.length; j++)
+                System.out.print(matriz[i][j]);
+
+        }
+    }
+
+        //Integer.valueOf(String.valueOf(String.valueOf(num).charAt(j)));
+
+        /*for(int i=0; i < n ; i++) { LEITURA DE CADA FILA DE STRING
             int num = ler.nextInt();
             int caracteres = String.valueOf(num).length();  //Outra maneira de converter os alagarismos
             while (caracteres > n){
@@ -52,10 +65,9 @@ public class Trabalho {
                 aux1 = aux1 / 10;
             }while (aux1>0);
         }*/
-    }
+
     /*==========================================================*/
     public static void alineaB(int [][] matriz, int n){
-
         for(int i=0; i < n ; i++){
             if (i!=0)
                 System.out.println();
