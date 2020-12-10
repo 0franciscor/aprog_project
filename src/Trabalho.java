@@ -1,15 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.util.Scanner;
 public class Trabalho {
 
     public static void main(String[] args) throws FileNotFoundException {
-        alineaA();
-        //alineaB();
+        alineaB(alineaA());
     }
 
-    public static void alineaA () throws FileNotFoundException {
+    public static int[][] alineaA () throws FileNotFoundException {
         File inputMatriz = new File("Imagem.txt");
         Scanner ler = new Scanner(inputMatriz);
         int numLinhas = 0;
@@ -34,44 +32,16 @@ public class Trabalho {
                 aux2++;
             }
         }
-
-        System.out.println("");
-        for (int i = 0; i < matriz.length; i++) {
-            if (i != 0)
-                System.out.println();
-            for (int j = 0; j < matriz.length; j++)
-                System.out.print(matriz[i][j]);
-
-        }
+        read.close();
+        return matriz;
     }
 
-        //Integer.valueOf(String.valueOf(String.valueOf(num).charAt(j)));
-
-        /*for(int i=0; i < n ; i++) { LEITURA DE CADA FILA DE STRING
-            int num = ler.nextInt();
-            int caracteres = String.valueOf(num).length();  //Outra maneira de converter os alagarismos
-            while (caracteres > n){
-                num = ler.nextInt();
-                caracteres = String.valueOf(num).length();
-            }
-                // matriz[i][j]= Integer.valueOf(String.valueOf(String.valueOf(num).charAt(j))); precisa do ciclo for em função de j
-            int aux1 = num;
-            int aux2 = n;
-            do {
-                int dig = aux1 % 10;
-                int aux = dig;
-                aux2--;
-                matriz[i][aux2]=aux;
-                aux1 = aux1 / 10;
-            }while (aux1>0);
-        }*/
-
-    /*==========================================================*/
-    public static void alineaB(int [][] matriz, int n){
-        for(int i=0; i < n ; i++){
+    public static void alineaB(int [][] matriz){
+        System.out.println("\nb)");
+        for(int i=0; i < matriz.length ; i++){
             if (i!=0)
                 System.out.println();
-            for(int j=0; j < n; j++)
+            for(int j=0; j < matriz.length ; j++)
                 System.out.print(matriz[i][j]);
         }
     }
