@@ -1,10 +1,22 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Trabalho {
     static Scanner ler = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    static final String fILE1 = "textFile.txt";
+    static final String fILE2 = "textFile2.txt";
+    static final int MAX_ROWS = 20;
+    static final int MAX_COLUMNS = 20;
 
-        System.out.println("Quadro com numeros");
+
+    public static void main(String[] args) throws FileNotFoundException {
+
+        String [] textoDiscrito = new String [MAX_ROWS];
+        int [] dimensaoImagem = new int[MAX_ROWS];
+        int [][] matriz = new int [MAX_ROWS][MAX_COLUMNS];
+
+        
+       /* System.out.println("Quadro com numeros");
 
         int n; //n = ordem da matriz (ex 4x4)
         do{
@@ -14,7 +26,11 @@ public class Trabalho {
         int [][] matriz = new int [n][n];
         alineaA(matriz,n);
         alineaB(matriz,n);
+
+        */
     }
+
+
 
     public static void alineaA (int [][] matriz,int n){
 
