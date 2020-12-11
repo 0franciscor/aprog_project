@@ -15,6 +15,8 @@ public class Trabalho {
         System.out.println("\nd)\n" + alineaD(matriz,matrizFiltro));
         alineaE(matrizFiltro);
         alineaG(matrizFiltro);
+        alineaH(matrizFiltro);
+        alineaI(matrizFiltro);
     }
 
     public static int[][] alineaA () throws FileNotFoundException { //=========LEITURA E ARMAZENAMENTO DE DADOS=========
@@ -92,33 +94,33 @@ public class Trabalho {
         int Q3[] = new int[4];
         int Q4[] = new int[4];
 
-        int k = 0;
-        for(int i = 0; i < 2; i++){ //PRIMEIRO QUADRANTE
+        int k = 0; //PRIMEIRO QUADRANTE
+        for(int i = 0; i < 2; i++){
             for(int j = 0; j < 2; j++){
                 Q1[k] = matrizFiltro[i][j];
                 k++;
             }
         }
 
-        k = 0;
-        for(int i = 0; i < 2; i++){ //SEGUNDO QUADRANTE
+        k = 0; //SEGUNDO QUADRANTE
+        for(int i = 0; i < 2; i++){
             for(int j = (matrizFiltro.length-2); j < matrizFiltro.length; j++){
                 Q2[k] = matrizFiltro[i][j];
                 k++;
             }
         }
 
-        k=0;
-        for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){ //TERCEIRO QUADRANTE
+        k=0; //TERCEIRO QUADRANTE
+        for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){
             for(int j = 0; j < 2; j++){
                 Q3[k] = matrizFiltro[i][j];
                 k++;
             }
         }
 
-        k=0;
+        k=0; //QUARTO QUADRANTE
         for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){
-            for(int j = (matrizFiltro.length-2); j <matrizFiltro.length; j++){ //QUARTO QUADRANTE
+            for(int j = (matrizFiltro.length-2); j <matrizFiltro.length; j++){
                 Q4[k] = matrizFiltro[i][j];
                 k++;
             }
@@ -130,28 +132,43 @@ public class Trabalho {
         System.out.println(alineaEaux(Q4));
 
     }
-    public static int alineaEaux(int[] quadrante){
-        int menor = quadrante[0], aux=1, temp=quadrante[0];
+    public static int alineaEaux(int[] quadrante) {
+        int menor = quadrante[0], temp = -1, quantidadeMenores = 0;
         boolean flag = false;
 
-        for(int i=1; i<quadrante.length; i++){
-            if(menor > quadrante[i])
-                menor= quadrante[i];
+        for (int i = 1; i < quadrante.length; i++) {
+            if (menor > quadrante[i])
+                menor = quadrante[i];
         }
-
-        for(int i= 1; i<quadrante.length; i++){
-            if(menor == quadrante[i])
-                aux++;
-
-            if(temp != menor && temp == quadrante[i])
-                flag = true;
-            else
-                temp = quadrante[i];
+        for (int i = 0; i < quadrante.length; i++) {
+            if (menor == quadrante[i])
+                quantidadeMenores++;
         }
-        if(flag && aux==2)
+        if (quantidadeMenores >= 2)
             return menor;
-        else
-            return temp;
+
+        else{
+            int i = 0, aux = 0;
+            do {
+                if (quadrante[i] != menor) { //tenta encontrar um num no array que seja diferente do menor
+                    temp = quadrante[i];
+                    flag = true;
+                }
+
+                if(flag) {
+                    for (int j = 0; j < quadrante.length; j++) { //verifica se o num encontrado tem mais do que uma repetição
+                        if (quadrante[j] == temp)
+                            aux++;
+                    }
+                }
+                i++;
+            } while (i < quadrante.length && aux<=2);
+
+            if(aux>=2)
+                return temp;
+            else
+                return menor;
+        }
     }
 
     public static int [] alineaF (int [][] matrizFiltro){
@@ -182,7 +199,6 @@ public class Trabalho {
     }
 
     public static int[][] alineaG (int [][] matrizFiltro){
-
         System.out.println("g)");
         for(int i=0; i<matrizFiltro.length;i++){
             for(int j=0;j<matrizFiltro.length;j++){
@@ -196,8 +212,44 @@ public class Trabalho {
             for (int j = 0; j < matrizFiltro.length; j++)
                 System.out.print(matrizFiltro[i][j]);
         }
-
+        System.out.println();
         return matrizFiltro;
     }
-}
 
+    public static int[][] alineaH (int [][] matrizFiltro){
+
+        System.out.println("h)");
+        for (int i = 0; i < matrizFiltro.length; i++) {
+            if (i != 0)
+                System.out.println();
+            for (int j = matrizFiltro.length-1; j >=0; j--)
+                System.out.print(matrizFiltro[i][j]);
+        }
+        System.out.println();
+        return matrizFiltro;
+    }
+
+    public static int alineaI (int [][] matrizFiltro){
+
+        int numLinha=0, soma=0,aux=0,aux1=0,aux2=0,aux3=0,menor=0;
+
+        System.out.println("i)");
+        for(int i=0; i< matrizFiltro.length; i++){
+            aux1=soma;
+            soma=0;
+            for (int j=0; j< matrizFiltro.length; j++){
+                soma += matrizFiltro[i][j];
+
+            }
+
+            aux = soma;
+            numLinha++;
+            aux2 = numLinha;
+            if(aux < aux1){
+                menor=numLinha;
+            }
+        }
+        System.out.println(menor);
+        return numLinha;
+    }
+}
