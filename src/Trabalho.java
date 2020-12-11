@@ -8,6 +8,7 @@ public class Trabalho {
         alineaB(matriz);
         int[][]matrizFiltro = alineaC(matriz);
         System.out.println("\nd)\n" + alineaD(matriz,matrizFiltro));
+        alineaE(matrizFiltro);
     }
 
     public static int[][] alineaA () throws FileNotFoundException { //=========LEITURA E ARMAZENAMENTO DE DADOS=========
@@ -78,4 +79,100 @@ public class Trabalho {
         }
         return true;
     }
+
+    public static void alineaE(int[][] matrizFiltro){
+        int Q1[] = new int[4];
+        int Q2[] = new int[4];
+        int Q3[] = new int[4];
+        int Q4[] = new int[4];
+
+        int k = 0;
+        for(int i = 0; i < 2; i++){ //PRIMEIRO QUADRANTE
+            for(int j = 0; j < 2; j++){
+                Q1[k] = matrizFiltro[i][j];
+                k++;
+            }
+        }
+
+        k = 0;
+        for(int i = 0; i < 2; i++){ //SEGUNDO QUADRANTE
+            for(int j = (matrizFiltro.length-2); j < matrizFiltro.length; j++){
+                Q2[k] = matrizFiltro[i][j];
+                k++;
+            }
+        }
+
+        k=0;
+        for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){ //TERCEIRO QUADRANTE
+            for(int j = 0; j < 2; j++){
+                Q3[k] = matrizFiltro[i][j];
+                k++;
+            }
+        }
+
+        k=0;
+        for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){
+            for(int j = (matrizFiltro.length-2); j <matrizFiltro.length; j++){ //QUARTO QUADRANTE
+                Q4[k] = matrizFiltro[i][j];
+                k++;
+            }
+        }
+        System.out.println("e)");
+        System.out.print(alineaEaux(Q1));
+        System.out.println(alineaEaux(Q2));
+        System.out.print(alineaEaux(Q3));
+        System.out.println(alineaEaux(Q4));
+
+    }
+    public static int alineaEaux(int[] quadrante){
+        int menor = quadrante[0], aux=1, temp=quadrante[0];
+        boolean flag = false;
+
+        for(int i=1; i<quadrante.length; i++){
+            if(menor > quadrante[i])
+                menor= quadrante[i];
+        }
+
+        for(int i= 1; i<quadrante.length; i++){
+            if(menor == quadrante[i])
+                aux++;
+
+            if(temp != menor && temp == quadrante[i])
+                flag = true;
+            else
+                temp = quadrante[i];
+        }
+        if(flag && aux==2)
+            return menor;
+        else
+            return temp;
+    }
+
+    public static int [] alineaF (int [][] matrizFiltro){
+        int arr [] = new int [16];
+
+        int aux=0,cor=0;
+        boolean flag = true;
+
+        for (int i=0; i< matrizFiltro.length;i++){
+            for(int j=0; j<matrizFiltro.length;j++){
+                cor=matrizFiltro[i][j];
+                for(int k=0; k<Math.pow(matrizFiltro.length, 2); k++){
+                    if (cor == arr[k]){
+                        flag = false;
+                    }
+                }
+                if(flag) {
+                    arr[aux] = cor;
+                    aux++;
+                    flag = true;
+                }
+            }
+        }
+        for(int i=0; i < arr.length ; i++){
+            System.out.print(arr[i]);
+        }
+        return arr;
+    }
 }
+
