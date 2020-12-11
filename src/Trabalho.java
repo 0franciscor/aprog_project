@@ -6,10 +6,11 @@ public class Trabalho {
     public static void main(String[] args) throws FileNotFoundException {
         int[][] matriz = alineaA();
         alineaB(matriz);
-        System.out.println("\nd)\n" + alineaD(matriz, alineaC(matriz)));
+        int[][]matrizFiltro = alineaC(matriz);
+        System.out.println("\nd)\n" + alineaD(matriz,matrizFiltro));
     }
 
-    public static int[][] alineaA () throws FileNotFoundException {
+    public static int[][] alineaA () throws FileNotFoundException { //=========LEITURA E ARMAZENAMENTO DE DADOS=========
         File inputMatriz = new File("Imagem.txt");
         Scanner ler = new Scanner(inputMatriz);
 
@@ -34,7 +35,7 @@ public class Trabalho {
         return matriz;
     }
 
-    public static void alineaB(int[][] matriz){
+    public static void alineaB(int[][] matriz){ //=========IMPRESSAO DA MATRIZ ORIGINAL=========
         System.out.println("b)");
         for(int i=0; i < matriz.length ; i++){
             if (i!=0)
@@ -44,7 +45,7 @@ public class Trabalho {
         }
     }
 
-    public static int[][] alineaC(int[][] matriz) {
+    public static int[][] alineaC(int[][] matriz) { //=========CRIAÇÃO DA MATRIZ FILTRO=========
         int[][] matrizFiltro = new int[matriz.length][matriz.length];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
@@ -65,10 +66,10 @@ public class Trabalho {
                     System.out.print(matrizFiltro[i][j]);
             }
         }
-            return matrizFiltro;
+        return matrizFiltro;
     }
 
-    public static boolean alineaD(int[][] matriz, int[][] matrizFiltro){
+    public static boolean alineaD(int[][] matriz, int[][] matrizFiltro){ //=========COMPARAÇÃO DA MATRIZ ORIGINAL E DA MATRIZ FILTRO=========
         for(int i = 0; i<matriz.length; i++){
             for(int j = 0; j< matriz.length; j++){
                 if (matriz[i][j] != matrizFiltro[i][j])
@@ -78,4 +79,3 @@ public class Trabalho {
         return true;
     }
 }
-
