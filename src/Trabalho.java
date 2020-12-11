@@ -64,7 +64,7 @@ public class Trabalho {
         if (matriz.length > 2) {
             for (int i = 1; i < (matrizFiltro.length - 1); i++) {
                 for (int j = 1; j < (matrizFiltro.length - 1); j++) {
-                    matrizFiltro[i][j] = (matriz[i][j] + matriz[i][j - 1] + matriz[i][j + 1] + matriz[i - 1][j] + matriz[i + 1][j]) / 5; //requer mais teste
+                    matrizFiltro[i][j] = (int)Math.round((double)(matriz[i][j] + matriz[i][j - 1] + matriz[i][j + 1] + matriz[i - 1][j] + matriz[i + 1][j]) / 5); //requer mais teste
                 }
             }
             System.out.println("\nc)");
@@ -225,7 +225,6 @@ public class Trabalho {
             for (int j = matrizFiltro.length-1; j >=0; j--)
                 System.out.print(matrizFiltro[i][j]);
         }
-        System.out.println();
         return matrizFiltro;
     }
 
@@ -233,7 +232,7 @@ public class Trabalho {
 
         int numLinha=0, soma=0,aux=0,aux1=0,aux2=0,aux3=0,menor=0;
 
-        System.out.println("i)");
+        System.out.println("\ni)");
         for(int i=0; i< matrizFiltro.length; i++){
             aux1=soma;
             soma=0;
@@ -241,15 +240,8 @@ public class Trabalho {
                 soma += matrizFiltro[i][j];
 
             }
-
-            aux = soma;
-            numLinha++;
-            aux2 = numLinha;
-            if(aux < aux1){
-                menor=numLinha;
-            }
+            System.out.println(soma);
         }
-        System.out.println(menor);
         return numLinha;
     }
 }
