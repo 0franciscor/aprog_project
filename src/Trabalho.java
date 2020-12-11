@@ -1,7 +1,12 @@
+import com.sun.jdi.ClassObjectReference;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Trabalho {
+
+    static final int COR = 1;
+    static final int COR2 = 5;
 
     public static void main(String[] args) throws FileNotFoundException {
         int[][] matriz = alineaA();
@@ -9,6 +14,7 @@ public class Trabalho {
         int[][]matrizFiltro = alineaC(matriz);
         System.out.println("\nd)\n" + alineaD(matriz,matrizFiltro));
         alineaE(matrizFiltro);
+        alineaG(matrizFiltro);
     }
 
     public static int[][] alineaA () throws FileNotFoundException { //=========LEITURA E ARMAZENAMENTO DE DADOS=========
@@ -173,6 +179,25 @@ public class Trabalho {
             System.out.print(arr[i]);
         }
         return arr;
+    }
+
+    public static int[][] alineaG (int [][] matrizFiltro){
+
+        System.out.println("g)");
+        for(int i=0; i<matrizFiltro.length;i++){
+            for(int j=0;j<matrizFiltro.length;j++){
+                if(matrizFiltro[i][j]== COR)
+                    matrizFiltro[i][j]=COR2;
+            }
+        }
+        for (int i = 0; i < matrizFiltro.length; i++) {
+            if (i != 0)
+                System.out.println();
+            for (int j = 0; j < matrizFiltro.length; j++)
+                System.out.print(matrizFiltro[i][j]);
+        }
+
+        return matrizFiltro;
     }
 }
 
