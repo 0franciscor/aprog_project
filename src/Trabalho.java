@@ -6,8 +6,7 @@ public class Trabalho {
     public static void main(String[] args) throws FileNotFoundException {
         int[][] matriz = alineaA();
         alineaB(matriz);
-        int [][] matrizFiltro = alineaC(matriz);
-        System.out.println("\nd)\n" + alineaD(matriz, matrizFiltro));
+        System.out.println("\nd)\n" + alineaD(matriz, alineaC(matriz)));
     }
 
     public static int[][] alineaA () throws FileNotFoundException {
@@ -46,7 +45,7 @@ public class Trabalho {
     }
 
     public static int[][] alineaC(int[][] matriz) {
-        int[][] matrizFiltro = matriz;
+        int[][] matrizFiltro = new int[matriz.length][matriz.length];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
                 matrizFiltro[i][j] = matriz[i][j];
@@ -59,25 +58,24 @@ public class Trabalho {
                 }
             }
             System.out.println("\nc)");
-            for (int i = 0; i < matriz.length; i++) {
+            for (int i = 0; i < matrizFiltro.length; i++) {
                 if (i != 0)
                     System.out.println();
-                for (int j = 0; j < matriz.length; j++)
-                    System.out.print(matriz[i][j]);
+                for (int j = 0; j < matrizFiltro.length; j++)
+                    System.out.print(matrizFiltro[i][j]);
             }
         }
             return matrizFiltro;
     }
 
     public static boolean alineaD(int[][] matriz, int[][] matrizFiltro){
-        boolean flag = true;
         for(int i = 0; i<matriz.length; i++){
             for(int j = 0; j< matriz.length; j++){
                 if (matriz[i][j] != matrizFiltro[i][j])
-                    flag = false;
+                    return false;
             }
         }
-        return flag;
+        return true;
     }
 }
 
