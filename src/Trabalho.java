@@ -64,7 +64,7 @@ public class Trabalho {
         if (matriz.length > 2) {
             for (int i = 1; i < (matrizFiltro.length - 1); i++) {
                 for (int j = 1; j < (matrizFiltro.length - 1); j++) {
-                    matrizFiltro[i][j] = (int)Math.round((double)(matriz[i][j] + matriz[i][j - 1] + matriz[i][j + 1] + matriz[i - 1][j] + matriz[i + 1][j]) / 5); //requer mais teste
+                    matrizFiltro[i][j] = (matriz[i][j] + matriz[i][j - 1] + matriz[i][j + 1] + matriz[i - 1][j] + matriz[i + 1][j]) / 5; //requer mais teste
                 }
             }
             System.out.println("\nc)");
@@ -148,8 +148,9 @@ public class Trabalho {
             return menor;
 
         else{
-            int i = 0, aux = 0;
+            int i = 0, aux;
             do {
+                aux=0;
                 if (quadrante[i] != menor) { //tenta encontrar um num no array que seja diferente do menor
                     temp = quadrante[i];
                     flag = true;
