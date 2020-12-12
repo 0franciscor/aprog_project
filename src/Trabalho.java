@@ -2,6 +2,7 @@ import com.sun.jdi.ClassObjectReference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 public class Trabalho {
 
@@ -180,14 +181,9 @@ public class Trabalho {
                 flag = true;
             }
         }
-        int menor = arr[0], temp;
+        Arrays.sort(arr);
         for(int i =0; i<aux; i++) {
-            if (arr[i] < menor) {
-                temp = menor;
-                arr[i - 1] = arr[i];
-                arr[i] = temp;
-            }
-            System.out.print("["+ menor+"]");
+            System.out.print("["+ arr[i]+"]");
         }
     }
 
