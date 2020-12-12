@@ -14,9 +14,10 @@ public class Trabalho {
         int[][]matrizFiltro = alineaC(matriz);
         System.out.println("\nd)\n" + alineaD(matriz,matrizFiltro));
         alineaE(matrizFiltro);
+        alineaF(matrizFiltro);
         alineaG(matrizFiltro);
         alineaH(matrizFiltro);
-        alineaI(matrizFiltro);
+        alineaJ(matrizFiltro,alineaI(matrizFiltro));
     }
 
     public static int[][] alineaA () throws FileNotFoundException { //=========LEITURA E ARMAZENAMENTO DE DADOS=========
@@ -151,34 +152,42 @@ public class Trabalho {
         }
     }
 
-    public static int [] alineaF (int [][] matrizFiltro){
-        int arr [] = new int [16];
+    public static void alineaF (int [][] matrizFiltro){
+        System.out.println("\nf)");
 
-        int aux=0,cor=0;
-        boolean flag = true;
+        int arr [] = new int [(matrizFiltro.length)*(matrizFiltro.length)];
+
+        int aux=1,cor, j, k=0;
+        boolean flag = false;
+
+        arr[0]=matrizFiltro[0][0];
 
         for (int i=0; i< matrizFiltro.length;i++){
-            for(int j=0; j<matrizFiltro.length;j++){
+            if(i==0)
+                j=1;
+            else
+                j=0;
+            for(; j<matrizFiltro.length;j++){
                 cor=matrizFiltro[i][j];
-                for(int k=0; k<Math.pow(matrizFiltro.length, 2); k++){
-                    if (cor == arr[k]){
-                        flag = false;
-                    }
-                }
-                if(flag) {
-                    arr[aux] = cor;
-                    aux++;
-                    flag = true;
-                }
+                //for(int k=0; k<aux; k++){
+                  do{
+                      if(cor!=arr[k]) {
+                          arr[k + 1] = cor;
+                          aux++;
+                          flag = true;
+                      }
+                      k++;
+                    }while((k<aux) && flag == false);
+                //}
+
             }
         }
         for(int i=0; i < arr.length ; i++){
-            System.out.print(arr[i]);
+            System.out.print("["+ arr[i] +"]");
         }
-        return arr;
     }
 
-    public static int[][] alineaG (int [][] matrizFiltro){
+    public static void alineaG (int [][] matrizFiltro){
         System.out.println("\ng)");
         for(int i=0; i<matrizFiltro.length;i++){
             for(int j=0;j<matrizFiltro.length;j++){
@@ -193,10 +202,9 @@ public class Trabalho {
                 System.out.print(matrizFiltro[i][j]);
         }
         System.out.println();
-        return matrizFiltro;
     }
 
-    public static int[][] alineaH (int [][] matrizFiltro){
+    public static void alineaH (int [][] matrizFiltro){
 
         System.out.println("h)");
         for (int i = 0; i < matrizFiltro.length; i++) {
@@ -205,10 +213,9 @@ public class Trabalho {
             for (int j = matrizFiltro.length-1; j >=0; j--)
                 System.out.print(matrizFiltro[i][j]);
         }
-        return matrizFiltro;
     }
 
-    public static void alineaI (int [][] matrizFiltro){
+    public static int alineaI (int [][] matrizFiltro){
         System.out.println("\ni)");
 
         int soma=0, menor=0, maiorLinha=0, aux1;
@@ -228,11 +235,20 @@ public class Trabalho {
             soma=0;
         }
         System.out.println(maiorLinha);
+        return maiorLinha;
     }
 
-    public static int alineaJ (int [][] matrizFiltro){
+    public static void alineaJ (int [][] matrizFiltro, int maiorLinha){
 
+        System.out.println("j)");
+        for(int i=0; i<matrizFiltro.length; i++)
+            matrizFiltro[maiorLinha-1][i]=9;
 
-        
+        for (int i = 0; i < matrizFiltro.length; i++) {
+            if(i!=0)
+                System.out.println();
+            for (int j = 0; j < matrizFiltro.length; j++)
+                System.out.print(matrizFiltro[i][j]);
+        }
     }
 }
