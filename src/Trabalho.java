@@ -208,23 +208,31 @@ public class Trabalho {
         return matrizFiltro;
     }
 
-    public static int alineaI (int [][] matrizFiltro){
+    public static void alineaI (int [][] matrizFiltro){
         System.out.println("\ni)");
 
-        int numLinha=0, soma=0;
-        int[] linhas = new int[matrizFiltro.length];
+        int soma=0, menor=0, maiorLinha=0, aux1;
         for(int i=0; i< matrizFiltro.length; i++){
             for (int j=0; j< matrizFiltro.length; j++) {
                 soma += matrizFiltro[i][j];
-                linhas[j] = soma;
             }
-            numLinha++;
-            System.out.println(numLinha);
-            System.out.println(soma);
-
+            if (i==0){
+                menor = soma;
+                maiorLinha=i+1;
+            }else{
+                if (soma<=menor){
+                    menor = soma;
+                    maiorLinha=i+1;
+                }
+            }
             soma=0;
         }
+        System.out.println(maiorLinha);
+    }
 
-        return numLinha;
+    public static int alineaJ (int [][] matrizFiltro){
+
+
+        
     }
 }
