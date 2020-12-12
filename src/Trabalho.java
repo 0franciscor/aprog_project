@@ -89,49 +89,28 @@ public class Trabalho {
     }
 
     public static void alineaE(int[][] matrizFiltro){
-        int Q1[] = new int[4];
-        int Q2[] = new int[4];
-        int Q3[] = new int[4];
-        int Q4[] = new int[4];
-
-        int k = 0; //PRIMEIRO QUADRANTE
-        for(int i = 0; i < 2; i++){
-            for(int j = 0; j < 2; j++){
-                Q1[k] = matrizFiltro[i][j];
-                k++;
-            }
-        }
-
-        k = 0; //SEGUNDO QUADRANTE
-        for(int i = 0; i < 2; i++){
-            for(int j = (matrizFiltro.length-2); j < matrizFiltro.length; j++){
-                Q2[k] = matrizFiltro[i][j];
-                k++;
-            }
-        }
-
-        k=0; //TERCEIRO QUADRANTE
-        for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){
-            for(int j = 0; j < 2; j++){
-                Q3[k] = matrizFiltro[i][j];
-                k++;
-            }
-        }
-
-        k=0; //QUARTO QUADRANTE
-        for(int i = (matrizFiltro.length-2); i < matrizFiltro.length; i++){
-            for(int j = (matrizFiltro.length-2); j <matrizFiltro.length; j++){
-                Q4[k] = matrizFiltro[i][j];
-                k++;
-            }
-        }
+        int Q[] = new int[4];
         System.out.println("e)");
-        System.out.print(alineaEaux(Q1));
-        System.out.println(alineaEaux(Q2));
-        System.out.print(alineaEaux(Q3));
-        System.out.println(alineaEaux(Q4));
-
+        if((matrizFiltro.length%2)==0){
+            int indice = 0;
+            for(int i=0; i< matrizFiltro.length; i+=2){
+                if(i!=0 && (i%2)==0)
+                    System.out.println();
+                for(int j=0; j< matrizFiltro.length; j+=2){
+                    Q[indice] = matrizFiltro[i][j];
+                    indice++;
+                    Q[indice] = matrizFiltro[i][j+1];
+                    indice++;
+                    Q[indice] = matrizFiltro[i+1][j];
+                    indice++;
+                    Q[indice] = matrizFiltro[i+1][j+1];
+                    System.out.print(alineaEaux(Q));
+                    indice = 0;
+                }
+            }
+       }
     }
+
     public static int alineaEaux(int[] quadrante) {
         int menor = quadrante[0], temp = -1, quantidadeMenores = 0;
         boolean flag = false;
@@ -163,7 +142,7 @@ public class Trabalho {
                     }
                 }
                 i++;
-            } while (i < quadrante.length && aux<=2);
+            } while (i < quadrante.length && aux<2);
 
             if(aux>=2)
                 return temp;
@@ -200,7 +179,7 @@ public class Trabalho {
     }
 
     public static int[][] alineaG (int [][] matrizFiltro){
-        System.out.println("g)");
+        System.out.println("\ng)");
         for(int i=0; i<matrizFiltro.length;i++){
             for(int j=0;j<matrizFiltro.length;j++){
                 if(matrizFiltro[i][j]== COR)
@@ -230,19 +209,22 @@ public class Trabalho {
     }
 
     public static int alineaI (int [][] matrizFiltro){
-
-        int numLinha=0, soma=0,aux=0,aux1=0,aux2=0,aux3=0,menor=0;
-
         System.out.println("\ni)");
-        for(int i=0; i< matrizFiltro.length; i++){
-            aux1=soma;
-            soma=0;
-            for (int j=0; j< matrizFiltro.length; j++){
-                soma += matrizFiltro[i][j];
 
+        int numLinha=0, soma=0;
+        int[] linhas = new int[matrizFiltro.length];
+        for(int i=0; i< matrizFiltro.length; i++){
+            for (int j=0; j< matrizFiltro.length; j++) {
+                soma += matrizFiltro[i][j];
+                linhas[j] = soma;
             }
+            numLinha++;
+            System.out.println(numLinha);
             System.out.println(soma);
+
+            soma=0;
         }
+
         return numLinha;
     }
 }
