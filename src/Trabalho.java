@@ -157,8 +157,8 @@ public class Trabalho {
 
         int arr [] = new int [(matrizFiltro.length)*(matrizFiltro.length)];
 
-        int aux=1,cor, j, k=0;
-        boolean flag = false;
+        int aux=1,cor, j;
+        boolean flag = true;
 
         arr[0]=matrizFiltro[0][0];
 
@@ -167,23 +167,27 @@ public class Trabalho {
                 j=1;
             else
                 j=0;
-            for(; j<matrizFiltro.length;j++){
-                cor=matrizFiltro[i][j];
-                //for(int k=0; k<aux; k++){
-                  do{
-                      if(cor!=arr[k]) {
-                          arr[k + 1] = cor;
-                          aux++;
-                          flag = true;
-                      }
-                      k++;
-                    }while((k<aux) && flag == false);
-                //}
-
+            for(; j<matrizFiltro.length;j++) {
+                cor = matrizFiltro[i][j];
+                for(int k=0; k< aux; k++){
+                    if(cor==arr[k])
+                        flag = false;
+                }
+                if(flag == true) {
+                    arr[aux] = cor;
+                    aux++;
+                }
+                flag = true;
             }
         }
-        for(int i=0; i < arr.length ; i++){
-            System.out.print("["+ arr[i] +"]");
+        int menor = arr[0], temp;
+        for(int i =0; i<aux; i++) {
+            if (arr[i] < menor) {
+                temp = menor;
+                arr[i - 1] = arr[i];
+                arr[i] = temp;
+            }
+            System.out.print("["+ menor+"]");
         }
     }
 
