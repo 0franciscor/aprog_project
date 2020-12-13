@@ -94,23 +94,41 @@ public class Trabalho {
         int Q[] = new int[4];
         System.out.println("e)");
         if((matrizFiltro.length%2)==0){
-            int indice = 0;
             for(int i=0; i< matrizFiltro.length; i+=2){
                 if(i!=0 && (i%2)==0)
                     System.out.println();
                 for(int j=0; j< matrizFiltro.length; j+=2){
-                    Q[indice] = matrizFiltro[i][j];
-                    indice++;
-                    Q[indice] = matrizFiltro[i][j+1];
-                    indice++;
-                    Q[indice] = matrizFiltro[i+1][j];
-                    indice++;
-                    Q[indice] = matrizFiltro[i+1][j+1];
+                    Q[0] = matrizFiltro[i][j];
+                    Q[1] = matrizFiltro[i][j+1];
+                    Q[2] = matrizFiltro[i+1][j];
+                    Q[3] = matrizFiltro[i+1][j+1];
                     System.out.print(alineaEaux(Q));
-                    indice = 0;
                 }
             }
-       }
+        }
+        else if(matrizFiltro.length==2) {
+            Q[0] = matrizFiltro[0][0];
+            Q[1] = matrizFiltro[0][1];
+            Q[2] = matrizFiltro[1][0];
+            Q[3] = matrizFiltro[1][1];
+            System.out.print(alineaEaux(Q));
+        }
+        else if((matrizFiltro.length/2)%2 == 0){
+            for(int i=0; i< (matrizFiltro.length/2); i+=2){
+                if(i!=0 && (i%2)==0)
+                    System.out.println();
+                for(int j=0; j< (matrizFiltro.length/2); j+=2){
+                    Q[0] = matrizFiltro[i][j];
+                    Q[1] = matrizFiltro[i][j+1];
+                    Q[2] = matrizFiltro[i+1][j];
+                    Q[3] = matrizFiltro[i+1][j+1];
+                    System.out.print(alineaEaux(Q));
+                }
+            }
+        }
+        else if((matrizFiltro.length/2)%2 != 0){
+
+        }
     }
 
     public static int alineaEaux(int[] quadrante) {
@@ -181,9 +199,19 @@ public class Trabalho {
                 flag = true;
             }
         }
-        Arrays.sort(arr);
-        for(int i =0; i<aux; i++) {
-            System.out.print("["+ arr[i]+"]");
+
+        for(int k = 0; k<aux; k++){
+            int menor =10; //SEGUINTE INSTANCIA A SEGUIR AO ZERO
+            for(int i =0; i<aux; i++) {
+                if (arr[i]<menor && arr[i]!=-1){
+                    menor = arr[i];
+                }
+            }
+            System.out.print("[" + menor + "]");
+            for(int i = 0; i<aux; i++){
+                if(arr[i] == menor)
+                    arr[i] = -1;
+            }
         }
     }
 
@@ -213,6 +241,7 @@ public class Trabalho {
             for (int j = matrizFiltro.length-1; j >=0; j--)
                 System.out.print(matrizFiltro[i][j]);
         }
+
     }
 
     public static int alineaI (int [][] matrizFiltro){
