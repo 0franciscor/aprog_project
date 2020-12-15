@@ -8,14 +8,18 @@ public class Trabalho {
 
     public static void main(String[] args) throws FileNotFoundException {
         int[][] matriz = alineaA();
-        alineaB(matriz);
-        int[][]matrizFiltro = alineaC(matriz);
-        System.out.println("\nd)\n" + alineaD(matriz,matrizFiltro));
-        alineaE(matrizFiltro);
-        alineaF(matrizFiltro);
-        alineaG(matrizFiltro);
-        alineaH(matrizFiltro);
-        alineaJ(matrizFiltro,alineaI(matrizFiltro));
+        if(matriz.length<=1)
+            System.out.println("Não foi possível realizar as operações.");
+        else {
+            alineaB(matriz);
+            int[][] matrizFiltro = alineaC(matriz);
+            System.out.println("\nd)\n" + alineaD(matriz, matrizFiltro));
+            alineaE(matrizFiltro);
+            alineaF(matrizFiltro);
+            alineaG(matrizFiltro);
+            int[][] matrizInvertida = alineaH(matrizFiltro);
+            alineaJ(matrizInvertida, alineaI(matrizInvertida));
+        }
     }
 
     public static int[][] alineaA () throws FileNotFoundException { //=========LEITURA E ARMAZENAMENTO DE DADOS=========
@@ -36,7 +40,7 @@ public class Trabalho {
             }
             if (linhaCorrente > 2) {
                 for (int i = 0; i < matriz.length; i++)
-                    matriz[colunaCorrente][i] = Integer.valueOf(String.valueOf(String.valueOf(input).charAt(i)));
+                    matriz[colunaCorrente][i] = Integer.valueOf(String.valueOf(String.valueOf(input).charAt(i))); //Obtém os algarimos da string, um a um, e converte-os para inteiros. Estes inteiros são adicionados a uma matriz
                 colunaCorrente++;
             }
         }
@@ -63,7 +67,7 @@ public class Trabalho {
         if (matriz.length > 2) {
             for (int i = 1; i < (matrizFiltro.length - 1); i++) {
                 for (int j = 1; j < (matrizFiltro.length - 1); j++) {
-                    matrizFiltro[i][j] = (matriz[i][j] + matriz[i][j - 1] + matriz[i][j + 1] + matriz[i - 1][j] + matriz[i + 1][j]) / 5; //requer mais teste
+                    matrizFiltro[i][j] = (matriz[i][j] + matriz[i][j - 1] + matriz[i][j + 1] + matriz[i - 1][j] + matriz[i + 1][j]) / 5;
                 }
             }
             System.out.println("\nc)");
@@ -73,6 +77,9 @@ public class Trabalho {
                 for (int j = 0; j < matrizFiltro.length; j++)
                     System.out.print(matrizFiltro[i][j]);
             }
+        } else {
+            System.out.println("\nc)");
+            System.out.print("Não foi possível aplicar o filtro.");
         }
         return matrizFiltro;
     }
@@ -148,29 +155,33 @@ public class Trabalho {
             if (menor == quadrante[i])
                 quantidadeMenores++;
         }
-        if (quantidadeMenores >= 2)
+        if (quantidadeMenores >= (quadrante.length/2))
             return menor;
 
         else{
-            int i = 0, aux;
+            int i = 0, maior=-1, aux, indiceMaior=0;
             do {
                 aux=0;
-                if (quadrante[i] != menor) { //tenta encontrar um num no array que seja diferente do menor
+                if (quadrante[i] != menor) { //Tenta encontrar um num no array que seja diferente do menor
                     temp = quadrante[i];
                     flag = true;
                 }
 
                 if(flag) {
-                    for (int j = 0; j < quadrante.length; j++) { //verifica se o num encontrado tem mais do que uma repetição
+                    for (int j = 0; j < quadrante.length; j++) { //Verifica se o num encontrado tem mais do que uma repetição
                         if (quadrante[j] == temp)
                             aux++;
                     }
+                    if(aux>maior) {
+                        indiceMaior = i;
+                        maior = aux;
+                    }
                 }
                 i++;
-            } while (i < quadrante.length && aux<2);
+            } while (i < quadrante.length && aux<(quadrante.length)/2);
 
-            if(aux>=2)
-                return temp;
+            if(maior>quantidadeMenores)
+                return quadrante[indiceMaior];
             else
                 return menor;
         }
@@ -179,12 +190,12 @@ public class Trabalho {
     public static void alineaF (int [][] matrizFiltro){
         System.out.println("\nf)");
 
-        int arr [] = new int [(matrizFiltro.length)*(matrizFiltro.length)];
+        int cores [] = new int [10]; //ou tamanho=10, visto os numeros variarem de 0 a 9 ou (matrizFiltro.length)*(matrizFiltro.length)
 
         int aux=1,cor, j;
         boolean flag = true;
 
-        arr[0]=matrizFiltro[0][0];
+        cores[0]=matrizFiltro[0][0];
 
         for (int i=0; i< matrizFiltro.length;i++){
             if(i==0)
@@ -194,11 +205,11 @@ public class Trabalho {
             for(; j<matrizFiltro.length;j++) {
                 cor = matrizFiltro[i][j];
                 for(int k=0; k< aux; k++){
-                    if(cor==arr[k])
+                    if(cor==cores[k])
                         flag = false;
                 }
-                if(flag == true) {
-                    arr[aux] = cor;
+                if(flag) {
+                    cores[aux] = cor;
                     aux++;
                 }
                 flag = true;
@@ -206,23 +217,23 @@ public class Trabalho {
         }
 
         for(int k = 0; k<aux; k++){
-            int menor =10; //SEGUINTE INSTANCIA A SEGUIR AO ZERO
+            int menor =10; //SEGUINTE INSTANCIA A SEGUIR AO ZERO ou 10
             for(int i =0; i<aux; i++) {
-                if (arr[i]<menor && arr[i]!=-1){
-                    menor = arr[i];
+                if (cores[i]<menor && cores[i]!=-1){
+                    menor = cores[i];
                 }
             }
-            System.out.print("[" + menor + "]");
+            System.out.print("[" + menor + "]");//Print do menor
             for(int i = 0; i<aux; i++){
-                if(arr[i] == menor)
-                    arr[i] = -1;
+                if(cores[i] == menor)
+                    cores[i] = -1;
             }
         }
     }
 
     public static void alineaG (int [][] matrizFiltro){
         System.out.println("\ng)");
-        for(int i=0; i<matrizFiltro.length;i++){
+        for(int i=0; i<matrizFiltro.length;i++){ //ciclo que percorre a matriz e substitui uma cor por uma outra pretendida
             for(int j=0;j<matrizFiltro.length;j++){
                 if(matrizFiltro[i][j]== COR)
                     matrizFiltro[i][j]=COR2;
@@ -237,30 +248,37 @@ public class Trabalho {
         System.out.println();
     }
 
-    public static void alineaH (int [][] matrizFiltro){
-
-        System.out.println("h)");
+    public static int[][] alineaH (int [][] matrizFiltro){
+        int[][] matrizInvertida = new int[matrizFiltro.length][matrizFiltro.length];
         for (int i = 0; i < matrizFiltro.length; i++) {
+            int aux=0;
+            for (int j = matrizFiltro.length-1; j >=0; j--) {//Inverte a ordem das linhas, ou seja, um print invertido
+                matrizInvertida [i][aux] =matrizFiltro[i][j];
+                aux++;
+            }
+        }
+        System.out.println("h)");
+        for (int i = 0; i < matrizInvertida.length; i++) {
             if (i != 0)
                 System.out.println();
-            for (int j = matrizFiltro.length-1; j >=0; j--)
-                System.out.print(matrizFiltro[i][j]);
+            for (int j = 0; j < matrizInvertida.length; j++)
+                System.out.print(matrizInvertida[i][j]);
         }
-
+        return matrizInvertida;
     }
 
-    public static int alineaI (int [][] matrizFiltro){
+    public static int alineaI (int [][] matrizInvertida){
         System.out.println("\ni)");
 
-        int soma=0, menor=0, maiorLinha=0, aux1;
-        for(int i=0; i< matrizFiltro.length; i++){
-            for (int j=0; j< matrizFiltro.length; j++) {
-                soma += matrizFiltro[i][j];
+        int soma=0, menor=0, maiorLinha=0;
+        for(int i=0; i< matrizInvertida.length; i++){ //Ciclo para realizar as somas das linhas
+            for (int j=0; j< matrizInvertida.length; j++) {
+                soma += matrizInvertida[i][j];
             }
-            if (i==0){
+            if (i==0){ //Estabelece a primeira linha como a menor para poder comparar com as restantes linhas da matriz
                 menor = soma;
                 maiorLinha=i+1;
-            }else{
+            }else{ //Define a linha com a menor soma, à medida que executa o ciclo.
                 if (soma<=menor){
                     menor = soma;
                     maiorLinha=i+1;
@@ -272,17 +290,17 @@ public class Trabalho {
         return maiorLinha;
     }
 
-    public static void alineaJ (int [][] matrizFiltro, int maiorLinha){
+    public static void alineaJ (int [][] matrizInvertida, int maiorLinha){
 
         System.out.println("j)");
-        for(int i=0; i<matrizFiltro.length; i++)
-            matrizFiltro[maiorLinha-1][i]=9;
+        for(int i=0; i<matrizInvertida.length; i++)
+            matrizInvertida[maiorLinha-1][i]=9;  //Pinta a linha com o indice obtido na alinea anterior com 9
 
-        for (int i = 0; i < matrizFiltro.length; i++) {
+        for (int i = 0; i < matrizInvertida.length; i++) { //Print da matriz
             if(i!=0)
                 System.out.println();
-            for (int j = 0; j < matrizFiltro.length; j++)
-                System.out.print(matrizFiltro[i][j]);
+            for (int j = 0; j < matrizInvertida.length; j++)
+                System.out.print(matrizInvertida[i][j]);
         }
     }
 }
