@@ -11,6 +11,7 @@ public class Trabalho {
         if(matriz.length<=1)
             System.out.println("Não foi possível realizar as operações.");
         else {
+            System.out.println("b)");
             alineaB(matriz);
             int[][] matrizFiltro = alineaC(matriz);
             System.out.println("\nd)\n" + alineaD(matriz, matrizFiltro));
@@ -48,7 +49,6 @@ public class Trabalho {
     }
 
     public static void alineaB(int[][] matriz){ //=========IMPRESSAO DA MATRIZ ORIGINAL=========
-        System.out.println("b)");
         for(int i=0; i < matriz.length ; i++){
             if (i!=0)
                 System.out.println();
@@ -71,13 +71,9 @@ public class Trabalho {
                 }
             }
             System.out.println("\nc)");
-            for (int i = 0; i < matrizFiltro.length; i++) {
-                if (i != 0)
-                    System.out.println();
-                for (int j = 0; j < matrizFiltro.length; j++)
-                    System.out.print(matrizFiltro[i][j]);
-            }
-        } else {
+            alineaB(matrizFiltro);
+
+        }else {
             System.out.println("\nc)");
             System.out.print("Não foi possível aplicar o filtro.");
         }
@@ -95,55 +91,30 @@ public class Trabalho {
     }
 
     public static void alineaE(int[][] matrizFiltro){
-        int Q[] = new int[(matrizFiltro.length/2)*(matrizFiltro.length/2)];
+
         System.out.println("e)");
-
-        int aux=0;
-
-        for(int i=0; i< matrizFiltro.length/2; i++){
-            for(int j=0; j< matrizFiltro.length/2; j++){
-                Q[aux] = matrizFiltro[i][j];
-                aux++;
-
-            }
-        }
-        System.out.print(alineaEaux(Q));
-        aux=0;
-
-        for (int i=0; i< matrizFiltro.length/2; i++){
-            for (int j= matrizFiltro.length- matrizFiltro.length/2; j< matrizFiltro.length; j++){
-                Q[aux] = matrizFiltro[i][j];
-                aux++;
-
-            }
-        }
-        System.out.print(alineaEaux(Q)+"\n");
-        aux=0;
-
-        for (int i= matrizFiltro.length - matrizFiltro.length/2; i< matrizFiltro.length; i++){
-            for (int j=0; j< matrizFiltro.length/2; j++){
-                Q[aux] = matrizFiltro[i][j];
-                aux++;
-
-            }
-        }
-        System.out.print(alineaEaux(Q));
-        aux=0;
-
-
-        for (int i= matrizFiltro.length-matrizFiltro.length/2; i< matrizFiltro.length; i++){
-            for (int j= matrizFiltro.length- matrizFiltro.length/2; j< matrizFiltro.length; j++){
-                Q[aux] = matrizFiltro[i][j];
-                aux++;
-
-            }
-        }
-
-        System.out.print(alineaEaux(Q));
+        alineaEaux1(matrizFiltro, 0, (matrizFiltro.length/2),0, (matrizFiltro.length/2));
+        alineaEaux1(matrizFiltro, 0, (matrizFiltro.length/2),(matrizFiltro.length- matrizFiltro.length/2), matrizFiltro.length);
+        System.out.println();
+        alineaEaux1(matrizFiltro, (matrizFiltro.length - matrizFiltro.length/2), (matrizFiltro.length),0, (matrizFiltro.length/2));
+        alineaEaux1(matrizFiltro, (matrizFiltro.length-matrizFiltro.length/2), (matrizFiltro.length), (matrizFiltro.length- matrizFiltro.length/2), (matrizFiltro.length));
 
     }
 
-    public static int alineaEaux(int[] quadrante) {
+    public static void alineaEaux1(int[][] matrizFiltro, int a, int b, int c, int d){
+        int Q[] = new int[(matrizFiltro.length/2)*(matrizFiltro.length/2)];
+        int aux=0;
+
+        for(int i=a; i< b; i++){
+            for(int j=c; j< d; j++){
+                Q[aux] = matrizFiltro[i][j];
+                aux++;
+            }
+        }
+        System.out.print(alineaEaux2(Q));
+    }
+
+    public static int alineaEaux2(int[] quadrante) {
         int menor = quadrante[0], temp = -1, quantidadeMenores = 0;
         boolean flag = false;
 
@@ -239,12 +210,7 @@ public class Trabalho {
                     matrizFiltro[i][j]=COR2;
             }
         }
-        for (int i = 0; i < matrizFiltro.length; i++) {
-            if (i != 0)
-                System.out.println();
-            for (int j = 0; j < matrizFiltro.length; j++)
-                System.out.print(matrizFiltro[i][j]);
-        }
+        alineaB(matrizFiltro);
         System.out.println();
     }
 
@@ -258,12 +224,7 @@ public class Trabalho {
             }
         }
         System.out.println("h)");
-        for (int i = 0; i < matrizInvertida.length; i++) {
-            if (i != 0)
-                System.out.println();
-            for (int j = 0; j < matrizInvertida.length; j++)
-                System.out.print(matrizInvertida[i][j]);
-        }
+        alineaB(matrizInvertida);
         return matrizInvertida;
     }
 
@@ -296,11 +257,6 @@ public class Trabalho {
         for(int i=0; i<matrizInvertida.length; i++)
             matrizInvertida[maiorLinha-1][i]=9;  //Pinta a linha com o indice obtido na alinea anterior com 9
 
-        for (int i = 0; i < matrizInvertida.length; i++) { //Print da matriz
-            if(i!=0)
-                System.out.println();
-            for (int j = 0; j < matrizInvertida.length; j++)
-                System.out.print(matrizInvertida[i][j]);
-        }
+        alineaB(matrizInvertida);
     }
 }
